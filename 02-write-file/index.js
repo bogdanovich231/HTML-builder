@@ -3,7 +3,6 @@ const fs = require('fs');
 
 const fileStream = fs.createWriteStream('text.txt');
 
-// Выводим приветственное сообщение
 console.log('Введите текст или "exit" для выхода:');
 
 const rl = readline.createInterface({
