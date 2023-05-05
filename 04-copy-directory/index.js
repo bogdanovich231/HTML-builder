@@ -13,13 +13,17 @@ function copyDir(srcDir, destDir) {
                 const srcPath = path.join(srcDir, file);
                 const destPath = path.join(destDir, file);
 
-                if (fs.statSync(srcPath).isDirectory()) {
-                    copyDir(srcPath, destPath);
-                } else {
-                    fs.copyFile(srcPath, destPath, (err) => {
-                        if (err) throw err;
-                    });
-                }
+                fs.stat(srcPath, (err, stats) => {
+                    if (err) throw err;
+
+                    if (stats.isDirectory()) {
+                        copyDir(srcPath, destPath);
+                    } else {
+                        fs.copyFile(srcPath, destPath, (err) => {
+                            if (err) throw err;
+                        });
+                    }
+                });
             });
         });
     });
